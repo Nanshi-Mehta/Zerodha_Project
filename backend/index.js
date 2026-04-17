@@ -268,8 +268,15 @@ app.post("/login", async (req, res) => {
 });
 
 
-app.listen(PORT, ()=> {
-    console.log("App start");
-    mongoose.connect(uri);
+mongoose.connect(uri)
+  .then(() => {
     console.log("DB connected!");
-});
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  })
+  .catch((err) => {
+    console.log("DB connection error:", err);
+  });
