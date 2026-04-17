@@ -22,7 +22,7 @@ function Signup() {
       return;
     }
 
-    const res = await fetch("http://localhost:3002/signup", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +39,7 @@ function Signup() {
     }
 
     if (data.message === "Signup successful") {
-      const loginRes = await fetch("http://localhost:3002/login", {
+      const loginRes = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function Signup() {
       const loginData = await loginRes.json();
 
       localStorage.setItem("token", loginData.token);
-      window.location.href = "http://localhost:3001";
+      window.location.href = "https://zerodha-project-fu5i.vercel.app/";
     }
   };
 
@@ -64,7 +64,7 @@ function Signup() {
       return;
     }
 
-    const res = await fetch("http://localhost:3002/login", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ function Signup() {
     }
 
     localStorage.setItem("token", data.token);
-    window.location.href = "http://localhost:3001";
+    window.location.href = "https://zerodha-project-fu5i.vercel.app/";
   };
 
   return (
@@ -101,7 +101,7 @@ function Signup() {
     </p>
   </div>
 
-  {/* ✅ NEW WRAPPER */}
+    {/* NEW WRAPPER */}
   <div className="form-center">
     <div className="auth-box">
       <h2>{isLogin ? "Login" : "Signup"}</h2>

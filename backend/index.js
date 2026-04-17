@@ -19,7 +19,14 @@ const uri = process.env.MONGO_URL;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://zerodha-project-gdoz.vercel.app",
+    "https://zerodha-project-fu5i.vercel.app"
+  ],
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 
 // app.get('/addHolding', async(req, res)=>{
@@ -190,9 +197,13 @@ app.use(bodyParser.json());
 //   res.send("Done!");
 // });
 
-app.get('/allHoldings', async(req, res) => {
+app.get('/allHoldings', async (req, res) => {
+  try {
     let allHoldings = await HoldingsModel.find({});
     res.json(allHoldings);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch holdings" });
+  }
 });
 
 app.get('/allPositions', async(req, res) => {
